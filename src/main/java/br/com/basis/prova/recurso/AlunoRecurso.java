@@ -2,6 +2,7 @@ package br.com.basis.prova.recurso;
 
 import br.com.basis.prova.dominio.dto.AlunoDTO;
 import br.com.basis.prova.dominio.dto.AlunoDetalhadoDTO;
+import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
 import br.com.basis.prova.servico.AlunoServico;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,13 +43,13 @@ public class AlunoRecurso {
     }
 
     @DeleteMapping("/{matricula}")
-    public ResponseEntity<Void> excluir(@PathVariable("matricula") String matricula) {
-        alunoServico.excluir(matricula);
+    public ResponseEntity<Void> excluirAluno(@PathVariable("matricula") String matricula) throws Exception {
+        alunoServico.excluirAluno(matricula);
         return ResponseEntity.status(200).build();
     }
 
     @GetMapping
-    public ResponseEntity<List<AlunoDTO>> consultar() {
+    public ResponseEntity<List<AlunoListagemDTO>> consultar() {
         return ResponseEntity.ok(alunoServico.consultar());
     }
 

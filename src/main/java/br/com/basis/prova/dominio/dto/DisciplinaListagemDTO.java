@@ -1,17 +1,26 @@
 package br.com.basis.prova.dominio.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class DisciplinaListagemDTO {
 
-    private Integer id;
-    private String nome;
-    private Integer cargaHoraria;
-    private String descricao;
+	private Integer id;
+	private String nome;
+	private String descricao;
+	private Integer cargaHoraria;
+
+	public DisciplinaListagemDTO(Integer id, String nome, String descricao, Integer cargaHoraria) {
+
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.cargaHoraria = cargaHoraria;
+
+	}
 
 }

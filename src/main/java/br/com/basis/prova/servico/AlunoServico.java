@@ -3,13 +3,13 @@ package br.com.basis.prova.servico;
 import br.com.basis.prova.dominio.Aluno;
 import br.com.basis.prova.dominio.dto.AlunoDTO;
 import br.com.basis.prova.dominio.dto.AlunoDetalhadoDTO;
+import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
 import br.com.basis.prova.repositorio.AlunoRepositorio;
 import br.com.basis.prova.servico.exception.RegraNegocioException;
 import br.com.basis.prova.servico.mapper.AlunoMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +30,7 @@ public class AlunoServico {
         if(verificarCPF(aluno)){
             throw new RegraNegocioException("CPF já existe");
         }
-
+        alunoRepositorio.save(aluno);
         return alunoMapper.toDto(aluno);
     }
 
@@ -39,16 +39,20 @@ public class AlunoServico {
         return !(alunoCpf == null || alunoCpf.getId().equals(aluno.getId()));
     }
 
-    public void excluir(String matricula) {
+    public void excluirAluno(String matricula) throws Exception {
+    	if(alunoRepositorio.existeDisciplina(matricula) != 0) {
+    		throw new Exception();
+    	}
+    	alunoRepositorio.deleteByMatricula(matricula);
     }
 
-    public List<AlunoDTO> consultar() {
-        return new ArrayList<>();
+    public List<AlunoListagemDTO> consultar() {
+        return alunoRepositorio.findAllListagem();
     }
 
+    @Transactional(readOnly = true)
     public AlunoDetalhadoDTO detalhar(Integer id) {
-        Aluno aluno = alunoRepositorio.findById(id).orElseThrow(() -> new RegraNegocioException("Registro não encontrado"));
-        return new AlunoDetalhadoDTO();
+        return alunoMapper.toDetalhadoDTO(alunoRepositorio.getOne(id));
     }
 
 }

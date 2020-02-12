@@ -1,9 +1,8 @@
 package br.com.basis.prova.dominio;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ALUNO")
@@ -29,7 +32,8 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     private Integer id;
-
+    
+    @Size(max = 6)
     @Column(name = "MATRICULA", nullable = false)
     private String matricula;
 
@@ -37,6 +41,7 @@ public class Aluno {
     @CPF
     private String cpf;
 
+    @Size(max = 50)
     @Column(name = "NOME", nullable = false)
     private String nome;
 

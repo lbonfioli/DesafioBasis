@@ -1,11 +1,18 @@
 package br.com.basis.prova.dominio;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "DISCIPLINA")
@@ -14,16 +21,27 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class Disciplina {
 
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID", nullable = false)
+	private Integer id;
 
-    private String nome;
+	@Size(min = 4 , max = 50)
+	@Column(name = "NOME", nullable = false)
+	private String nome;
 
-    private String descricao;
+	@Size(max = 200)
+	@Column(name = "DESCRICAO", nullable = false)
+	private String descricao;
 
-    private Integer cargaHoraria;
+	@Column(name = "CARGA_HORARIA", nullable = false)
+	private Integer cargaHoraria;
 
-    private Integer ativa;
-
-    private Professor professor;
+	@Column(name = "ATIVA", nullable = true)
+	private Integer ativa;
+	
+	@JoinColumn(name = "ID_PROFESSOR", nullable = false)
+	@ManyToOne(optional = false)
+	private Professor professor;
 
 }

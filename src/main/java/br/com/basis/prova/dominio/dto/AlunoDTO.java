@@ -11,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AlunoDTO { // DTO usado para salvar e editar um aluno
-
+public class AlunoDTO { 
+	
     private Integer id;
     private String nome;
     private String cpf;
@@ -20,4 +20,5 @@ public class AlunoDTO { // DTO usado para salvar e editar um aluno
     private LocalDate dataNascimento;
     private List<DisciplinaDTO> disciplinas = new ArrayList<>();
 
+  
 }

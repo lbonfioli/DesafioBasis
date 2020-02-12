@@ -41,14 +41,17 @@ public class DisciplinaServico {
     }
 
     public void excluir(Integer id) {
+    	
+    	
+    	disciplinaRepositorio.excluirDisciplinaListagemDTOById(id);
     }
 
     public List<DisciplinaListagemDTO> consultar() {
-        return disciplinaListagemMapper.toDto(disciplinaRepositorio.findAll());
+        return disciplinaRepositorio.findAllListagemD();
     }
 
     public DisciplinaDetalhadaDTO detalhar(Integer id) {
-        return new DisciplinaDetalhadaDTO();
+        return disciplinaRepositorio.findDetalhadaById(id);
     }
 
 }
